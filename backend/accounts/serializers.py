@@ -10,14 +10,15 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["username", "password", "profile_image", "phone_number", "short_info"]
+        fields = ["username", "email", "password", "profile_image", "phone_number", "short_info"]
         extra_kwargs = {
             'password': {'write_only': True}
         }
 
     def create(self, validated_data):
         user = User(
-            username=validated_data['username']
+            username=validated_data['username'],
+            email=validated_data['email']
         )
         profile_image = validated_data.get('profile_image')
         if profile_image:
